@@ -6,8 +6,17 @@ public class Line {
 	
 	String value;
 	
+	public Line() {
+		this("");
+	}
+	
 	public Line(String value) {
 		this.value = value;
+		tab_index = 0;
+	}
+	
+	public Line(String format, Object... values) {
+		this.value = String.format(format, values);
 		tab_index = 0;
 	}
 	

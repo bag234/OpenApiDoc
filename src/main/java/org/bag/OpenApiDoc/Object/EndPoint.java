@@ -53,11 +53,22 @@ public class EndPoint implements IWriteYML{
 		liner.addChild(new Line("summary: " + name));
 		liner.addChild(new Line("responses: "));
 		liner.addChild(new Line(1, "'" + code + "':"));
+		if (parmetr.isEntity())
+			liner.addChild(new Line("description: Auto generic [%s response %d|%s obj:%s]", name, code, typeContent, parmetr.getName()).addTab(2));
+		else
+			liner.addChild(new Line("description: Auto generic [%s response %d|%s ret:%s]", name, code, typeContent, parmetr.getType()).addTab(2));
 		liner.addChild(new Line(2, "content:"));
 		liner.addChild(new Line(3, typeContent.getContent() +":"));
 		liner.addChild(parmetr, 5);
 		
 		return liner;
 	}
+
+	@Override
+	public String toString() {
+		return "EndPoint [name=" + name + ", method=" + method + ", typeContent=" + typeContent + ", code=" + code
+				+ ", parmetr=" + parmetr + "]";
+	}
+	
 	
 }

@@ -6,7 +6,7 @@ import org.bag.OpenApiDoc.Object.Files.IWriteYML;
 
 public class Parameter implements IWriteYML{
 
-	final static String REF_R = "$ref: #/components/schemas/";
+	final static String REF_R = "$ref: '#/components/schemas/%s'";
 	
 	String name; 
 	
@@ -30,7 +30,6 @@ public class Parameter implements IWriteYML{
 	
 	public Parameter setMinor() {
 		isAbs = false;
-		type = Types.ARRAY;
 		return this;
 	}
 	
@@ -66,18 +65,31 @@ public class Parameter implements IWriteYML{
 		liner.addLine(new Line(name + ":"));
 		if(isEntity()) {
 			if(isArr) {
-				liner.addChild(type);
+				liner.addChild(Types.ARRAY);
+				
 				liner.addChild(new Line("items:"));
-				liner.addChild(new Line(1 ,REF_R + ent.getName()));
+				liner.addChild(new Line("type: %s", type.toString().toLowerCase()).addTab(1));
+				liner.addChild(new Line(REF_R, ent.getName()).addTab(1));
 			}
 			else
-				liner.addChild(new Line(REF_R + ent.getName()));
+				liner.addChild(new Line(REF_R, ent.getName()));
 		}
 		else {
-			liner.addChild(type);
+			if(isArr) {
+				liner.addChild(new Line("items:"));
+				liner.addChild(new Line("type: %s", type.toString().toLowerCase()).addTab(1));
+			}
+			else			
+				liner.addChild(type);
 		}
 
 		return liner;
+	}
+	
+	@Override
+	public String toString() {
+		return "[name=" + name + ", type=" + type + ", ent=" + ent + ", isAbs=" + isAbs + ", isArr=" + isArr
+				+ "]\n";
 	}
 	
 }

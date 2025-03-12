@@ -10,7 +10,7 @@ public enum Methods implements IWriteYML{
 
 	@Override
 	public Liner getBlock() {
-		return new Liner(this.name() +":");
+		return new Liner(this.name().toLowerCase() +":");
 	}
 	
 }

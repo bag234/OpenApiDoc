@@ -18,7 +18,7 @@ public enum Types implements IWriteYML {
 	
 	@Override
 	public Liner getBlock() {
-		return new Liner("type: " + this.name());
+		return new Liner("type: " + this.name().toLowerCase());
 	}
 	
 }

@@ -49,6 +49,11 @@ public class Entity implements IWriteYML {
 		
 		return liner;
 	}
+
+	@Override
+	public String toString() {
+		return "Entity [pars=\n" + pars + ", name=" + name + "]";
+	}
 	
 
 }
